@@ -1,22 +1,22 @@
 let carrito = Array();
 let manzanas = {
-    nombre: "manzanas",
-    precio: 1,
-    cantidad: 0
+    nombre: "Manzanas",
+    precio: 1
+    
 }
 let platanos = {
-    nombre: "plátanos",
+    nombre: "Plátanos",
     precio: 2
 }
 let naranjas = {
-    nombre: "naranjas",
+    nombre: "Naranjas",
     precio: 1.5
 }
 let enVenta = [manzanas, platanos, naranjas];
     
 
 
-document.getElementById("carrito").onclick = () =>{
+document.getElementById("mostrarCarrito").onclick = () =>{
     //const carritoDiv = document.createElement("div");
     //const h1= document.createElement("h1");
     //const textNode = document.createTextNode("Carrito");
@@ -33,21 +33,99 @@ document.getElementById("carrito").onclick = () =>{
     }
 
 }
-document.getElementsByTagName("button")[0].onclick = ()=>{
+//console.log(document.getElementsByClassName("add").length);
+for (let i = 0; i < document.getElementsByClassName("add").length; i++) { //al pulsar el boton añadir al carrito
+
+    document.getElementsByClassName("add")[i].onclick = () =>{
+        if (document.getElementsByClassName("cantidad")[i].value>0){
+            //console.log(i);
+            //console.log("ok");
+            const table = document.getElementById("carrito");
+            const tr = document.createElement("tr");
+            const td = document.createElement("td");
+            const precioUnidad = document.createElement("td");
+            const cantidad = document.createElement("td");
+            const totalProducto = document.createElement("td");
+            const botonBorrar =document.createElement("td");
+            const trTotal =document.createElement("tr");
+            const tdTotal =document.createElement("td");
+            const precioTotal =document.createElement("td");
+            let suma=0;
+            
+            
+
+            td.append(enVenta[i].nombre);
+            tr.append(td);
+
+            document.getElementById("carritoDiv").appendChild(tr);
+            precioUnidad.append(enVenta[i].precio);
+            tr.append(precioUnidad);
+
+            //document.getElementById("carritoDiv").appendChild(tr);
+            cantidad.append(document.getElementsByClassName("cantidad")[i].value);
+            tr.append(cantidad);
+
+            totalProducto.append(document.getElementsByClassName("cantidad")[i].value*enVenta[i].precio);
+            tr.append(totalProducto);
+
+            table.append(tr);
+
+            //td.append("0");
+            tdTotal.append("Total");
+            trTotal.append(tdTotal);
+            trTotal.append(document.createElement("td"));
+            trTotal.append(document.createElement("td"));
+            precioTotal.append(suma);
+            trTotal.append(precioTotal);
+            table.append(trTotal);
+            
+            //console.log(trTotal.parentElement.childElementCount);
+            //console.log(document.getElementsByTagName("table")[0].lastChild.previousSibling.lastChild.textContent);
+            //console.log(document.getElementsByTagName("table")[0].lastChild.lastChild.textContent);
+
+            if (document.getElementsByTagName("table")[0].childNodes.length>4){
+                document.getElementsByTagName("table")[0].lastChild.previousSibling.previousSibling.remove();
+            }
+
+            for (let j = 1; j < trTotal.parentElement.childElementCount-1; j++) {
+                
+                console.log(parseFloat(document.getElementsByTagName("table")[0].children[j].lastChild.textContent));
+                suma += parseFloat(document.getElementsByTagName("table")[0].children[j].lastChild.textContent);
+                console.log(suma);
+            }
+            precioTotal.textContent=suma;
+            console.log(precioTotal.textContent);
+            console.log(trTotal.parentElement.childElementCount-2);
+            document.getElementById("cantidadEnCarrito").append(trTotal.parentElement.childElementCount-2)
+            document.getElementById("cantidadEnCarrito").textContent=trTotal.parentElement.childElementCount-2;
+            
+
+        }
+        
+        
+
+    }
+    
+}
+
+
+
+
+//document.getElementsByTagName("button")[0].onclick = ()=>{
     //console.log(manzanas.nombre);
-    const tr = document.createElement("tr");
+   /* const tr = document.createElement("tr");
     const td = document.createElement("td");
-    const td2 = document.createElement("td");
+    const precioUnidad = document.createElement("td");*/
     
     /*const textNode = document.getElementsByTagName("button")[0].parentElement.childNodes[0];
     const clone = textNode.cloneNode(true);*/
     
-    td.append(enVenta[0].nombre);
+  /*  td.append(enVenta[0].nombre);
     tr.append(td);
     
     document.getElementById("carritoDiv").appendChild(tr);
-    td2.append(enVenta[0].precio);
-    tr.append(td2);
+    precioUnidad.append(enVenta[0].precio);
+    tr.append(precioUnidad);
     
     manzanas.cantidad+=parseInt(document.getElementsByTagName("input")[0].value);
     if (!carrito.manzanas) {
@@ -55,7 +133,7 @@ document.getElementsByTagName("button")[0].onclick = ()=>{
     }
     carrito.push(manzanas);
     console.log(carrito.length);
-    console.log(carrito);
+    console.log(carrito);*/
     
     /*h1.appendChild(textNode);
     document.getElementById("carritoDiv").appendChild(h1);*/
@@ -63,5 +141,5 @@ document.getElementsByTagName("button")[0].onclick = ()=>{
     let articulo=document.getElementsByTagName("button")[0].parentElement.childNodes[0];
     document.getElementById("carritoDiv").appendChild(articulo);
     console.log(document.getElementsByTagName("button")[0].parentElement.childNodes[0]);*/
-}
+//}
 
