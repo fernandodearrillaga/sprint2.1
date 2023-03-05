@@ -46,13 +46,14 @@ for (let i = 0; i < document.getElementsByClassName("add").length; i++) { //al p
             const precioUnidad = document.createElement("td");
             const cantidad = document.createElement("td");
             const totalProducto = document.createElement("td");
-            const botonBorrar =document.createElement("td");
+            const tdBotonBorrar =document.createElement("td");
+            const botonBorrar =document.createElement("button");
             const trTotal =document.createElement("tr");
             const tdTotal =document.createElement("td");
             const precioTotal =document.createElement("td");
             let suma=0;
             
-            
+            carrito.push(enVenta[i]);
 
             td.append(enVenta[i].nombre);
             tr.append(td);
@@ -67,6 +68,16 @@ for (let i = 0; i < document.getElementsByClassName("add").length; i++) { //al p
 
             totalProducto.append(document.getElementsByClassName("cantidad")[i].value*enVenta[i].precio);
             tr.append(totalProducto);
+
+            botonBorrar.className="Borrar";
+            botonBorrar.addEventListener('click', () =>{
+                event.target.parentElement.parentElement.remove();
+                sumado();
+                
+            });
+            botonBorrar.append("Borrar");
+            tdBotonBorrar.append(botonBorrar);
+            tr.append(tdBotonBorrar);
 
             table.append(tr);
 
@@ -86,19 +97,29 @@ for (let i = 0; i < document.getElementsByClassName("add").length; i++) { //al p
             if (document.getElementsByTagName("table")[0].childNodes.length>4){
                 document.getElementsByTagName("table")[0].lastChild.previousSibling.previousSibling.remove();
             }
-
-            for (let j = 1; j < trTotal.parentElement.childElementCount-1; j++) {
+            function sumado() {
+                suma=0;
+                console.log(document.getElementById("carrito").getElementsByTagName("tr").length);
+                for (let j = 1; j < document.getElementById("carrito").getElementsByTagName("tr").length-1; j++) {
                 
-                console.log(parseFloat(document.getElementsByTagName("table")[0].children[j].lastChild.textContent));
-                suma += parseFloat(document.getElementsByTagName("table")[0].children[j].lastChild.textContent);
-                console.log(suma);
+                    console.log(parseFloat(document.getElementsByTagName("table")[0].children[j].childNodes[3].textContent));
+                    suma += parseFloat(document.getElementsByTagName("table")[0].children[j].childNodes[3].textContent);
+                    console.log(suma);
+                    console.log(document.getElementById("carrito").lastElementChild.getElementsByTagName("td")[3]);
+                    document.getElementById("carrito").lastElementChild.getElementsByTagName("td")[3].firstChild.remove();
+                    document.getElementById("carrito").lastElementChild.getElementsByTagName("td")[3].append(suma);
+                    //precioTotal.textContent=suma;
+                }
+                
+                console.log(precioTotal.textContent);
             }
-            precioTotal.textContent=suma;
+            sumado();
             console.log(precioTotal.textContent);
             console.log(trTotal.parentElement.childElementCount-2);
             document.getElementById("cantidadEnCarrito").append(trTotal.parentElement.childElementCount-2)
             document.getElementById("cantidadEnCarrito").textContent=trTotal.parentElement.childElementCount-2;
             
+            console.log(carrito);
 
         }
         
