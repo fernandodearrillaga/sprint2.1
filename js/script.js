@@ -73,6 +73,8 @@ for (let i = 0; i < document.getElementsByClassName("add").length; i++) { //al p
             botonBorrar.addEventListener('click', () =>{
                 event.target.parentElement.parentElement.remove();
                 sumado();
+                actualizarCantidad();
+                
                 
             });
             botonBorrar.append("Borrar");
@@ -114,10 +116,22 @@ for (let i = 0; i < document.getElementsByClassName("add").length; i++) { //al p
                 console.log(precioTotal.textContent);
             }
             sumado();
+            actualizarCantidad();
             console.log(precioTotal.textContent);
             console.log(trTotal.parentElement.childElementCount-2);
-            document.getElementById("cantidadEnCarrito").append(trTotal.parentElement.childElementCount-2)
-            document.getElementById("cantidadEnCarrito").textContent=trTotal.parentElement.childElementCount-2;
+            function actualizarCantidad() {
+                console.log(document.getElementById("carrito").getElementsByTagName("tr").length-2);
+                document.getElementById("cantidadEnCarrito").append(document.getElementById("carrito").getElementsByTagName("tr").length-2);
+                console.log(document.getElementById("cantidadEnCarrito").childNodes.length);
+                //if (document.getElementById("carrito").getElementsByTagName("tr").length-2>1) {
+                    document.getElementById("cantidadEnCarrito").textContent=document.getElementById("carrito").getElementsByTagName("tr").length-2;
+               // }
+                
+            }
+            
+            //document.getElementById("cantidadEnCarrito").firstChild.remove();
+            //document.getElementById("cantidadEnCarrito").append(trTotal.parentElement.childElementCount-2);
+            //document.getElementById("cantidadEnCarrito").textContent=trTotal.parentElement.childElementCount-2;
             
             console.log(carrito);
 
